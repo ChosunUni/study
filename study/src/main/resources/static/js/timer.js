@@ -60,7 +60,6 @@ function deleteSubject() {
     }
 }
 
-
 function sendRequest() {
     var url = "timer";
     var xhr = new XMLHttpRequest();
