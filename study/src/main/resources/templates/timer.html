@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop</title>
+    <link rel="stylesheet" href="../css/timer.css">
+    <script src="../js/quotes.js" defer></script>
+    <style>
+        /* 추가된 CSS */
+        #quoteContainer {
+            text-align: center;
+            margin-top: 20px;
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #quote {
+            font-size: 20px;
+            font-style: italic;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<div id="quoteContainer">
+    <p id="quote"></p>
+</div>
+
+<select class="select" style="left: 69%; width:8%; top:34%" onclick="sendRequest()">
+    <option value="선택" disabled selected hidden>과목선택</option>
+    <option th:each="entity : ${list}" th:value="${entity?.id}" th:text="${entity?.subject}"></option>
+</select>
+
+<input class="select" style="top: 38%; left:69%; width:8% " type="subject" name="subject">
+
+<div class="Timer" id="timer">00:00:00</div>
+
+<div class="ButtonContainer">
+    <button class="Button" id="todoButton"> To-Do</button>
+    <button class="Button" id="studyTimeButton">Total Time</button>
+    <button class="Button" id="boardButton" onclick="location.href='/board'">게시판</button>
+    <button class="Button" id="startButton">Start</button>
+    <button class="Button" id="stopButton">Stop</button>
+</div>
+
+
+<form action="/timer/subject" method="post">
+    <button class="Button1" id="addsub" style="left: 60%; top:38%; width:8%" >과목 추가</button>
+    <input class="select" style="top: 38%; left:69%; width:8% " type="subject" name="subject">
+</form>
+
+<button class="Button1" id="delsub" style="left: 60%; width:8%;">과목 삭제</button>
+<script src="../js/timer.js"></script>
+</body>
+</html>
