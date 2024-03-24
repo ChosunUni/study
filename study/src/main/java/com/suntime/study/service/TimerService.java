@@ -24,4 +24,9 @@ public class TimerService {
     public List<TimerEntity> subAll() {
         return timerRepository.findAll();
     }
+
+    public void delDataById(Long id) {
+        // id를 사용하여 데이터베이스에서 과목을 삭제합니다.
+        timerRepository.deleteById(id);
+    }
 }

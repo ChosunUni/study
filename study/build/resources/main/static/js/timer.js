@@ -48,6 +48,19 @@ document.getElementById("stopButton").addEventListener("click", function() {
     }
 });
 
+function deleteSubject() {
+    var selectedId = document.querySelector('#subjectselect').value;
+    if(selectedId !== "") {
+        var form = document.getElementById('deleteForm');
+        form.action = '/timer/del/' + selectedId;
+        form.method = 'POST';
+        form.submit();
+    } else {
+        alert('과목을 선택해주세요.');
+    }
+}
+
+
 function sendRequest() {
     var url = "timer";
     var xhr = new XMLHttpRequest();

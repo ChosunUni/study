@@ -46,9 +46,12 @@
 </div>
 
 
-<form action="/timer/subject" method="post">
-    <button class="Button1" id="addsub" style="left: 60%; top:38%; width:8%" >과목 추가</button>
-    <input class="select" style="top: 38%; left:69%; width:8% " type="subject" name="subject">
+<form id="deleteForm" method="post">
+    <select class="select" id="subjectselect" name="selectedSubjectId" style="left: 69%; width:8%; top:34%">
+        <option value="" disabled selected hidden>과목선택</option>
+        <option th:each="entity : ${list}" th:value="${entity.id}" th:text="${entity.subject}"></option>
+    </select>
+    <button class="Button1" id="delsub" type="button" style="left: 60%; width:8%;" onclick="deleteSubject()">과목 삭제</button>
 </form>
 
 <button class="Button1" id="delsub" style="left: 60%; width:8%;">과목 삭제</button>
