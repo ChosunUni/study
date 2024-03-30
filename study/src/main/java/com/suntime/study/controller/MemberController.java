@@ -43,7 +43,7 @@ public class MemberController {
         MemberDTO loginResult = memberService.login(memberDTO);
         if (loginResult != null) {
             session.setAttribute("loginEmail", loginResult.getMemberEmail());
-            return "timer"; // 로그인 성공 시 타이머 페이지로 이동
+            return "redirect:/timer"; // 로그인 성공 시 타이머 페이지로 이동
         } else {
             return "index"; // 로그인 실패 시 인덱스 페이지로 이동
         }

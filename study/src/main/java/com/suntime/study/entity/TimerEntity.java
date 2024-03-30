@@ -18,7 +18,13 @@ public class TimerEntity {
     private String subject;
 
     @Column
-    private int time;
+    private Integer hours;
+
+    @Column
+    private Integer minutes;
+
+    @Column
+    private Integer seconds;
 
     public static TimerEntity toTimerEntity(TimerDTO timerDTO){
         TimerEntity timerEntity = new TimerEntity();
