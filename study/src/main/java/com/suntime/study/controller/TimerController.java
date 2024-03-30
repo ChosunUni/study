@@ -20,7 +20,7 @@ public class TimerController {
 
     @PostMapping("/timer/subject")
     public String subject(@ModelAttribute TimerDTO timerDTO){
-        // POST ¿äÃ»¿¡¼­ °ú¸ñÀ» ¹Ş¾Æ¼­ ¼­ºñ½º¸¦ ÅëÇØ ÀúÀåÇÕ´Ï´Ù.
+        // POST ìš”ì²­ì—ì„œ ê³¼ëª©ì„ ë°›ì•„ì„œ ì„œë¹„ìŠ¤ë¥¼ í†µí•´ ì €ì¥í•©ë‹ˆë‹¤.
         System.err.println("timerDTO = " + timerDTO);
         timerService.save(timerDTO);
         return "redirect:/timer";
@@ -36,6 +36,6 @@ public class TimerController {
     @PostMapping("/timer/del/{id}")
     public String delDataById(@PathVariable Long id){
         timerService.delDataById(id);
-        return "redirect:/timer"; // timer ÆäÀÌÁö·Î ¸®´ÙÀÌ·ºÆ®
+        return "redirect:/timer"; // timer í˜ì´ì§€ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
     }
 }

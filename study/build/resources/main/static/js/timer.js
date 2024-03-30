@@ -59,3 +59,42 @@ function deleteSubject() {
         alert('과목을 선택해주세요.');
     }
 }
+
+function sendRequest() {
+    var url = "timer";
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // 요청이 성공하면 여기에 처리 로직 추가
+            console.log("GET 요청이 성공했습니다.");
+        }
+    };
+    xhr.send();
+}
+
+window.onload = function() {
+    // GET 요청을 보내고 싶은 URL을 지정합니다.
+    var url = '/timer';
+    
+    // XMLHttpRequest 객체를 생성합니다.
+    var xhr = new XMLHttpRequest();
+    
+    // 요청을 준비합니다.
+    xhr.open('GET', url, true);
+    
+    // 요청이 완료되었을 때 실행되는 콜백 함수를 정의합니다.
+    xhr.onload = function () {
+        // 요청이 성공적으로 완료되었을 때 실행됩니다.
+        if (xhr.status >= 200 && xhr.status < 300) {
+            // 응답으로 받은 데이터를 처리합니다.
+            console.log(xhr.responseText);
+        } else {
+            // 요청이 실패한 경우 에러 메시지를 출력합니다.
+            console.error('Request failed:', xhr.statusText);
+        }
+    };
+    
+    // 요청을 보냅니다.
+    xhr.send();
+};
