@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/todo.css">
+    <style>
+        /* 추가적인 CSS 스타일링 */
+        /* 토요일 파란색으로 */
+        .sat {
+            color: blue !important;
+        }
+        /* 일요일과 공휴일 빨간색으로 */
+        .sun, .holiday {
+            color: red !important;
+        }
+        /* 클릭된 날짜에 동그라미로 테두리 추가 */
+        .active {
+            border: 2px solid black;
+            border-radius: 50%;
+        }
+    </style>
+
+</head>
+<body>
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="../timer"><img src="../img/icon.png" alt="일몰 이미지" class="sunset-image" width = "70px">
+                <span style="font-size: 0.8em; vertical-align: middle;"></span></a>
+        </div>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <form action="/index" method="post" class="form-inline">
+            <button type="submit" class="btn btn-outline-light">로그아웃</button>
+        </form>
+    </div>
+</nav>
+<aside class="side-bar">
+    <section class="side-bar__icon-box">
+        <section class="side-bar__icon-1">
+            <div></div>
+            <div></div>
+            <div></div>
+        </section>
+    </section>
+    <ul>
+        <li>
+            <a href="#"><i class="fa-solid fa-cat"></i> menu</a>
+            <ul>
+                <li><a href="/timer">Main</a></li>
+                <li><a href="../board">게시판</a></li>
+                <li><a href="#">Total time</a></li>
+            </ul>
+        </li>
+</aside>
+<div class="main">
+    <div class="content-wrap">
+        <div class="content-left">
+            <div class="main-wrap">
+                <div id="main-day" class="main-day"></div>
+                <div id="main-date" class="main-date"></div>
+            </div>
+            <div class="todo-wrap">
+                <div class="todo-title">Todo List</div>
+                <div class="input-wrap">
+                    <form th:action="@{/todo/create}" method="post">
+                        <!--<th th:text = "'&#x24C8;'">번호</th>-->
+                        <input type="text" placeholder="please write here!!" id="input-box" class="input-box">
+                        <button type="button" id="input-data" class="input-data">작성</button>
+                        <!--<div id="input-list" class="input-list"></div>-->
+                    </form>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th th:text = "'&#x24C8;'">번호</th>
+                            <th>할 일</th>
+                            <th>수행 여부</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="todoentity : ${toDoEntityList}">
+                            <td>●</td>
+                            <!--<td th:text="${todoentity.idx}"></td>-->
+                            <td th:text="${todoentity.content}"></td>
+                            <td th:text="${todoentity.completed}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--    <table>
+                <thead>
+                    <tr>
+                        <th th:text = "'&#x24C8;'">번호</th>
+                        <th>할 일</th>
+                    <th>수행 여부</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="todoentity : ${toDoEntityList}">
+                        <td>●</td>
+                &lt;!&ndash;<td th:text="${todoentity.idx}"></td>&ndash;&gt;
+                        <td th:text="${todoentity.content}"></td>
+                        <td th:text="${todoentity.completed}"></td>
+                    </tr>
+                </tbody>
+            </table>-->
+        <div class="content-right">
+            <table id="calendar" align="center">
+                <thead>
+                <tr class="btn-wrap clearfix">
+                    <td>
+                        <label id="prev">
+                            &#60;
+                        </label>
+                    </td>
+                    <td align="center" id="current-year-month" colspan="5"></td>
+                    <td>
+                        <label id="next">
+                            &#62;
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "sun" align="center">Sun</td>
+                    <td align="center">Mon</td>
+                    <td align="center">Tue</td>
+                    <td align="center">Wed</td>
+                    <td align="center">Thu</td>
+                    <td align="center">Fri</td>
+                    <td class= "sat" align="center">Sat</td>
+                </tr>
+                </thead>
+                <tbody id="calendar-body" class="calendar-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--<form th:action="@{/todo/create}" method="post">
+    <input name="content" placeholder="오늘의 할 일을 적어보세요!"/>
+    <button>작성</button>
+</form>-->
+<!--<table>
+    <thead>
+    <tr>
+        <th th:text = "'&#x24C8;'">번호</th>
+        <th>할 일</th>
+        <th>수행 여부</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="todoentity : ${toDoEntityList}">
+        <td>●</td>
+        &lt;!&ndash;<td th:text="${todoentity.idx}"></td>&ndash;&gt;
+        <td th:text="${todoentity.content}"></td>
+        <td th:text="${todoentity.completed}"></td>
+    </tr>
+    </tbody>
+</table>-->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var calendarBody = document.getElementById("calendar-body");
+        var currentTitle = document.getElementById("current-year-month");
+        // 달력의 각 셀에 클릭 이벤트 추가
+        calendarBody.addEventListener("click", function(event) {
+            var clickedCell = event.target;
+            if (clickedCell.tagName === "TD") {
+                var clickedDate = clickedCell.textContent;
+                var clickedMonth = document.getElementById("current-year-month").textContent;
+
+                // 작성할 할 일을 입력받는 모달 또는 폼을 표시하는 코드 작성
+                // 예를 들어, 모달 창을 띄워서 해당 날짜에 할 일을 입력하도록 할 수 있음
+                /*alert("You clicked on " + clickedMonth + " " + clickedDate);*/
+                // 작성한 할 일을 처리하는 코드를 여기에 추가
+
+            }
+        });
+    });
+</script>
+<script src ="../js/calender.js" defer></script>
+
+</body>
+</html>
